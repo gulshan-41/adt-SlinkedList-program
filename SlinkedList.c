@@ -16,6 +16,7 @@ void screenCleaner();
 
 void insertion();
 void atBeginning(struct node ** );
+void atEnd(struct node ** );
 
 void tryAgain(int );
 void printL(struct node *);
@@ -102,6 +103,11 @@ label2:
             printL(headN);
             tryAgain(1);
             break;
+        case 2:
+            atEnd(&headN);
+            printL(headN);
+            tryAgain(1);
+            break;
         case 4:
             exit(0);
             break;
@@ -138,6 +144,38 @@ void atBeginning(struct node **headN) {
 
         newNode->linkN = *headN;
         *headN = newNode;
+    }
+}
+
+void atEnd(struct node **headN) {
+    if(*headN == NULL) {
+        *headN = malloc(sizeof(struct node));
+        if(!(*headN)) {
+            printf("\nError: Memory allocation failed!\n");
+            exit(1);
+        } else {
+            printf("\nnewNode->data: ");
+            scanf("%d", &((*headN)->data));
+
+            (*headN)->linkN = NULL;
+        }
+    } else {
+        struct node *newNode = malloc(sizeof(struct node));
+        if (!newNode) {
+            printf("\nError: Memory allocation failed!.\n");
+            exit(1);
+        } else {
+            printf("\nnewNode->data: ");
+            scanf("%d", &(newNode->data));
+            newNode->linkN = NULL;
+
+            struct node *end = *headN;
+            
+            while(end->linkN != NULL) {
+                end = end->linkN;
+            }
+            end->linkN = newNode;
+        }
     }
 }
 
