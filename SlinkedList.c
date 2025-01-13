@@ -13,6 +13,7 @@ void welcomeScreen();
 void screenCleaner();
 
 void insertion();
+void atBeginning(); 
 
 void main() {
     welcomeScreen();
@@ -58,7 +59,38 @@ label1:
 }
 
 void insertion() {
-    printf("\n\n-- Working fine.");
+    screenCleaner();
+
+    int choice1;
+
+label2:
+    screenCleaner();
+    printf("-- Insertion.\n\n");
+    printf("Options: \n");
+    printf("> 1. At the beginning.\n");
+    printf("> 2. At the end.\n");
+    printf("> 3. At a specific position.\n");
+    printf("> 4. Exit from this section.\n\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice1);
+
+    switch(choice1) {
+        case 1:
+            atBeginning();
+            break;
+        case 4:
+            exit(0);
+            break;
+        default:
+            printf("\nError! choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            goto label2;
+    }
+}
+
+void atBeginning() {
+    printf("\n-- At the beginning.");
 }
 
 void screenCleaner() {
