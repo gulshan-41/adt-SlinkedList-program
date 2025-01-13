@@ -13,7 +13,9 @@ void welcomeScreen();
 void screenCleaner();
 
 void insertion();
-void atBeginning(); 
+void atBeginning();
+
+void tryAgain(int );
 
 void main() {
     welcomeScreen();
@@ -77,6 +79,7 @@ label2:
     switch(choice1) {
         case 1:
             atBeginning();
+            tryAgain(1);
             break;
         case 4:
             exit(0);
@@ -91,6 +94,33 @@ label2:
 
 void atBeginning() {
     printf("\n-- At the beginning.");
+}
+
+void tryAgain(int choice) {
+    char ch;
+
+    printf("\nDo you want to try again[y/N]: ");
+    scanf(" %c", &ch);
+
+    switch(ch) {
+        case 'y':
+        case 'Y':
+            if(choice == 1) {
+                insertion();
+            } /* else {
+                deletion();
+            } */
+            break;
+        case 'n':
+        case 'N':
+            welcomeScreen();
+            break;
+        default:
+            printf("\nError: invalid input. \n");
+            printf("Press any key to continue... \n");
+            getch();
+            welcomeScreen();
+    }
 }
 
 void screenCleaner() {
