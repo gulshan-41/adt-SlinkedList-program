@@ -4,18 +4,21 @@
 #include <conio.h>      // for: getch();
 #include <stdlib.h>     // for: exit(), system();
 
-struct Node {
+struct node {
     int data;
-    struct Node *linkN; 
+    struct node *linkN; 
 };
+
+struct node *headN = NULL;
 
 void welcomeScreen();
 void screenCleaner();
 
 void insertion();
-void atBeginning();
+void atBeginning(struct node ** );
 
 void tryAgain(int );
+void printL(struct node *);
 
 void main() {
     welcomeScreen();
@@ -60,9 +63,26 @@ label1:
     }
 }
 
+void printL(struct node *headN) {
+    struct node *p = NULL;
+    p = headN;
+    
+    if(headN == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+
+    printf("\nThe List: ");
+    while(p != NULL) {
+        printf("| %d |", p->data);
+        p = p->linkN;
+    }
+    printf("\n");
+}
+
 void insertion() {
     screenCleaner();
-
+    
     int choice1;
 
 label2:
@@ -78,7 +98,8 @@ label2:
 
     switch(choice1) {
         case 1:
-            atBeginning();
+            atBeginning(&headN);
+            printL(headN);
             tryAgain(1);
             break;
         case 4:
@@ -92,8 +113,32 @@ label2:
     }
 }
 
-void atBeginning() {
-    printf("\n-- At the beginning.");
+void atBeginning(struct node **headN) {
+
+    if(*headN == NULL) {
+        *headN = malloc(sizeof(struct node));
+        if(!(*headN)) {
+            printf("\nError: Memory allocation failed!\n");
+            exit(1);
+        } else {
+            printf("\nnewNode->data: ");
+            scanf("%d", &((*headN)->data));
+
+            (*headN)->linkN = NULL;
+        }
+    } else {
+        struct node *newNode = malloc(sizeof(struct node));
+        if (!newNode) {
+            printf("\nError: Memory allocation failed!.\n");
+            exit(1);
+        }
+
+        printf("\nnewNode->data: ");
+        scanf("%d", &(newNode->data));
+
+        newNode->linkN = *headN;
+        *headN = newNode;
+    }
 }
 
 void tryAgain(int choice) {
