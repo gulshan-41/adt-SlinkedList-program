@@ -76,7 +76,7 @@ void printL(struct node *headN) {
     p = headN;
     
     if(headN == NULL) {
-        printf("List is empty!\n");
+        printf("Alert: the list is empty!\n");
         return;
     }
 
@@ -214,6 +214,13 @@ void atSpecificSerial(struct node **headN) {
 void deletion() {
     screenCleaner();
 
+    if(headN == NULL) {
+        printf("\nAlert: The list is empty.\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
     int choice2;
 
 label3:
@@ -243,15 +250,11 @@ label3:
 
 void firstNode(struct node **headN) {
 
-    if(headN == NULL) {
-        printf("\nError: The list is empty.\n");
-    } else {
-        struct node *p = *headN;
-        *headN = (*headN)->linkN;
+    struct node *p = *headN;
+    *headN = (*headN)->linkN;
         
-        free(p);
-        p = NULL;
-    }
+    free(p);
+    p = NULL;
 }
 
 void tryAgain(int choice) {
