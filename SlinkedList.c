@@ -17,6 +17,7 @@ void screenCleaner();
 void insertion();
 void atBeginning(struct node ** );
 void atEnd(struct node ** );
+void atSpecificSerial(struct node ** );
 
 void tryAgain(int );
 void printL(struct node *);
@@ -82,7 +83,22 @@ void printL(struct node *headN) {
 }
 
 void insertion() {
+
     screenCleaner();
+    if(headN == NULL) {
+        headN = malloc(sizeof(struct node));
+        if(!(headN)) {
+            printf("\nError: Memory allocation failed!\n");
+            exit(1);
+        } else {
+            printf("Important: Before inserting further nodes,\n"
+                   "in the list must create the head NODE!\n");
+            printf("\nheadN->data: ");
+            scanf("%d", &(headN->data));
+
+            headN->linkN = NULL;
+        }
+    }
     
     int choice1;
 
@@ -92,7 +108,7 @@ label2:
     printf("Options: \n");
     printf("> 1. At the beginning.\n");
     printf("> 2. At the end.\n");
-    printf("> 3. At a specific position.\n");
+    printf("> 3. At a specific serial number.\n");
     printf("> 4. Exit from this section.\n\n");
     printf("Enter your choice: ");
     scanf("%d", &choice1);
@@ -108,8 +124,13 @@ label2:
             printL(headN);
             tryAgain(1);
             break;
+        case 3: 
+            atSpecificSerial(&headN);
+            printL(headN);
+            tryAgain(1);
+            break;
         case 4:
-            exit(0);
+            welcomeScreen();
             break;
         default:
             printf("\nError! choose from the given options.");
@@ -121,60 +142,65 @@ label2:
 
 void atBeginning(struct node **headN) {
 
-    if(*headN == NULL) {
-        *headN = malloc(sizeof(struct node));
-        if(!(*headN)) {
-            printf("\nError: Memory allocation failed!\n");
-            exit(1);
-        } else {
-            printf("\nnewNode->data: ");
-            scanf("%d", &((*headN)->data));
-
-            (*headN)->linkN = NULL;
-        }
-    } else {
-        struct node *newNode = malloc(sizeof(struct node));
-        if (!newNode) {
-            printf("\nError: Memory allocation failed!.\n");
-            exit(1);
-        }
-
-        printf("\nnewNode->data: ");
-        scanf("%d", &(newNode->data));
-
-        newNode->linkN = *headN;
-        *headN = newNode;
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
     }
+
+    printf("\nnewNode->data: ");
+    scanf("%d", &(newNode->data));
+
+    newNode->linkN = *headN;
+    *headN = newNode;
 }
 
 void atEnd(struct node **headN) {
-    if(*headN == NULL) {
-        *headN = malloc(sizeof(struct node));
-        if(!(*headN)) {
-            printf("\nError: Memory allocation failed!\n");
-            exit(1);
-        } else {
-            printf("\nnewNode->data: ");
-            scanf("%d", &((*headN)->data));
-
-            (*headN)->linkN = NULL;
-        }
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
     } else {
-        struct node *newNode = malloc(sizeof(struct node));
-        if (!newNode) {
-            printf("\nError: Memory allocation failed!.\n");
-            exit(1);
-        } else {
-            printf("\nnewNode->data: ");
-            scanf("%d", &(newNode->data));
-            newNode->linkN = NULL;
+        printf("\nnewNode->data: ");
+        scanf("%d", &(newNode->data));
+        newNode->linkN = NULL;
 
-            struct node *end = *headN;
+        struct node *end = *headN;
             
-            while(end->linkN != NULL) {
-                end = end->linkN;
+        while(end->linkN != NULL) {
+            end = end->linkN;
+        }
+        end->linkN = newNode;   
+    }
+}
+
+void atSpecificSerial(struct node **headN) {
+    int index;
+
+    struct node *newNode = malloc(sizeof(struct node));
+    if (!newNode) {
+        printf("\nError: Memory allocation failed!.\n");
+        exit(1);
+    } else {
+        printf("\nnewNode->data: ");
+        scanf("%d", &(newNode->data));
+        newNode->linkN = NULL;
+        printf("serial: ");
+        scanf("%d", &index);
+
+        struct node *p = *headN;
+
+        if(index == 1) {
+            newNode->linkN = *headN;
+            *headN = newNode;
+        } else {
+            index = index - 1;
+            while(index != 1) {
+                p = p->linkN;
+                index--;
             }
-            end->linkN = newNode;
+            newNode->linkN = p->linkN;
+            p->linkN = newNode;
         }
     }
 }
