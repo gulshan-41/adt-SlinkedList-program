@@ -19,6 +19,9 @@ void atBeginning(struct node ** );
 void atEnd(struct node ** );
 void atSpecificSerial(struct node ** );
 
+void deletion();
+void firstNode(struct node ** );
+
 void tryAgain(int );
 void printL(struct node *);
 
@@ -53,6 +56,9 @@ label1:
     switch(choice) {
         case 1:
             insertion();
+            break;
+        case 2:
+            deletion();
             break;
         case 8:
             exit(0);
@@ -205,6 +211,49 @@ void atSpecificSerial(struct node **headN) {
     }
 }
 
+void deletion() {
+    screenCleaner();
+
+    int choice2;
+
+label3:
+    screenCleaner();
+    printf("-- Deletion.\n\n");
+    printf("Options: \n");
+    printf("> 1. First node.\n");
+    printf("> 2. Last node.\n");
+    printf("> 3. A specific node.\n");
+    printf("> 4. Exit from this section.\n\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice2);
+
+    switch(choice2) {
+        case 1:
+            firstNode(&headN);
+            printL(headN);
+            tryAgain(2);
+            break;
+        default:
+            printf("\nError! choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            goto label3;
+    }
+}
+
+void firstNode(struct node **headN) {
+
+    if(headN == NULL) {
+        printf("\nError: The list is empty.\n");
+    } else {
+        struct node *p = *headN;
+        *headN = (*headN)->linkN;
+        
+        free(p);
+        p = NULL;
+    }
+}
+
 void tryAgain(int choice) {
     char ch;
 
@@ -216,9 +265,9 @@ void tryAgain(int choice) {
         case 'Y':
             if(choice == 1) {
                 insertion();
-            } /* else {
+            } else {
                 deletion();
-            } */
+            } 
             break;
         case 'n':
         case 'N':
