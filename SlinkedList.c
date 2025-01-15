@@ -21,6 +21,7 @@ void atSpecificSerial(struct node ** );
 
 void deletion();
 void firstNode(struct node ** );
+void lastNode(struct node ** );
 
 void tryAgain(int );
 void printL(struct node *);
@@ -240,6 +241,11 @@ label3:
             printL(headN);
             tryAgain(2);
             break;
+        case 2:
+            lastNode(&headN);
+            printL(headN);
+            tryAgain(2);
+            break;
         default:
             printf("\nError! choose from the given options.");
             printf("\nPress any key to continue...");
@@ -255,6 +261,25 @@ void firstNode(struct node **headN) {
         
     free(p);
     p = NULL;
+}
+
+void lastNode(struct node **headN) {
+
+    if((*headN)->linkN == NULL) {
+        free(*headN);
+        *headN = NULL;
+    } else {
+        struct node *p1 = *headN;
+        struct node *p2 = NULL;
+
+        while(p1->linkN != NULL) {
+            p2 = p1;
+            p1 = p1->linkN;
+        }
+        p2->linkN = NULL;
+        free(p1);
+        p1 = NULL;
+    }
 }
 
 void tryAgain(int choice) {
