@@ -10,6 +10,7 @@ struct node {
 };
 
 struct node *headN = NULL;
+int nodeCount = 1;
 
 void welcomeScreen();
 void screenCleaner();
@@ -22,6 +23,7 @@ void atSpecificSerial(struct node ** );
 void deletion();
 void firstNode(struct node ** );
 void lastNode(struct node ** );
+void specificNode(struct node ** );
 
 void tryAgain(int );
 void printL(struct node *);
@@ -160,6 +162,8 @@ void atBeginning(struct node **headN) {
 
     newNode->linkN = *headN;
     *headN = newNode;
+
+    nodeCount++;
 }
 
 void atEnd(struct node **headN) {
@@ -179,6 +183,8 @@ void atEnd(struct node **headN) {
         }
         end->linkN = newNode;   
     }
+
+    nodeCount++;
 }
 
 void atSpecificSerial(struct node **headN) {
@@ -197,7 +203,12 @@ void atSpecificSerial(struct node **headN) {
 
         struct node *p = *headN;
 
-        if(index == 1) {
+        if(index > nodeCount + 1 || index < 1) {
+            printf("\nError: Enter a valid serial number.");
+            printf("\nPress any key to continue...");
+            getch();
+            insertion();
+        } else if(index == 1) {
             newNode->linkN = *headN;
             *headN = newNode;
         } else {
@@ -210,6 +221,8 @@ void atSpecificSerial(struct node **headN) {
             p->linkN = newNode;
         }
     }
+
+    nodeCount++;
 }
 
 void deletion() {
@@ -246,6 +259,14 @@ label3:
             printL(headN);
             tryAgain(2);
             break;
+        case 3:
+            specificNode(&headN);
+            printL(headN);
+            tryAgain(2);
+            break;
+        case 4:
+            welcomeScreen();
+            break;
         default:
             printf("\nError! choose from the given options.");
             printf("\nPress any key to continue...");
@@ -261,6 +282,8 @@ void firstNode(struct node **headN) {
         
     free(p);
     p = NULL;
+
+    nodeCount--;
 }
 
 void lastNode(struct node **headN) {
@@ -280,6 +303,42 @@ void lastNode(struct node **headN) {
         free(p1);
         p1 = NULL;
     }
+
+    nodeCount--;
+}
+
+void specificNode(struct node **headN) {
+    int index;
+
+    printf("\nserial no.: ");
+    scanf("%d", &index);
+
+    if(index > nodeCount + 1 || index < 1) {
+        printf("\nError: Enter a valid serial number.");
+        printf("\nPress any key to continue...");
+        getch();
+        deletion();
+    } else if(index == 1) {
+        struct node *p = *headN;
+        *headN = (*headN)->linkN;
+        
+        free(p);
+        p = NULL;
+    } else {
+        struct node *p1 = *headN;
+        struct node *p2 = NULL;
+
+        for(int i = 1; i < index; i++) {
+            p2 = p1;
+            p1 = p1->linkN;
+        }
+
+        p2->linkN = p1->linkN;
+        free(p1);
+        p1 = NULL;
+    }
+
+    nodeCount--;
 }
 
 void tryAgain(int choice) {
