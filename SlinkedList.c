@@ -21,9 +21,9 @@ void atEnd();
 void atSpecificSerial();
 
 void deletion();
-void firstNode(struct node ** );
-void lastNode(struct node ** );
-void specificNode(struct node ** );
+void firstNode();
+void lastNode();
+void specificNode();
 
 // void upadate();
 
@@ -255,17 +255,17 @@ label3:
 
     switch(choice2) {
         case 1:
-            firstNode(&headN);
+            firstNode();
             printL();
             tryAgain(2);
             break;
         case 2:
-            lastNode(&headN);
+            lastNode();
             printL();
             tryAgain(2);
             break;
         case 3:
-            specificNode(&headN);
+            specificNode();
             printL();
             tryAgain(2);
             break;
@@ -280,10 +280,10 @@ label3:
     }
 }
 
-void firstNode(struct node **headN) {
+void firstNode() {
 
-    struct node *p = *headN;
-    *headN = (*headN)->linkN;
+    struct node *p = headN;
+    headN = (headN)->linkN;
         
     free(p);
     p = NULL;
@@ -291,13 +291,13 @@ void firstNode(struct node **headN) {
     nodeCount--;
 }
 
-void lastNode(struct node **headN) {
+void lastNode() {
 
-    if((*headN)->linkN == NULL) {
-        free(*headN);
-        *headN = NULL;
+    if((headN)->linkN == NULL) {
+        free(headN);
+        headN = NULL;
     } else {
-        struct node *p1 = *headN;
+        struct node *p1 = headN;
         struct node *p2 = NULL;
 
         while(p1->linkN != NULL) {
@@ -312,7 +312,7 @@ void lastNode(struct node **headN) {
     nodeCount--;
 }
 
-void specificNode(struct node **headN) {
+void specificNode() {
     int index;
 
     printf("\nserial no.: ");
@@ -324,13 +324,13 @@ void specificNode(struct node **headN) {
         getch();
         deletion();
     } else if(index == 1) {
-        struct node *p = *headN;
-        *headN = (*headN)->linkN;
+        struct node *p = headN;
+        headN = (headN)->linkN;
         
         free(p);
         p = NULL;
     } else {
-        struct node *p1 = *headN;
+        struct node *p1 = headN;
         struct node *p2 = NULL;
 
         for(int i = 1; i < index; i++) {
