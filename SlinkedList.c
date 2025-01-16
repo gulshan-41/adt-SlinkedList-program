@@ -16,17 +16,19 @@ void welcomeScreen();
 void screenCleaner();
 
 void insertion();
-void atBeginning(struct node ** );
-void atEnd(struct node ** );
-void atSpecificSerial(struct node ** );
+void atBeginning();
+void atEnd();
+void atSpecificSerial();
 
 void deletion();
 void firstNode(struct node ** );
 void lastNode(struct node ** );
 void specificNode(struct node ** );
 
+// void upadate();
+
 void tryAgain(int );
-void printL(struct node *);
+void printL();
 
 void main() {
     welcomeScreen();
@@ -63,6 +65,9 @@ label1:
         case 2:
             deletion();
             break;
+        // case 3: 
+        //     update();
+        //     break;
         case 8:
             exit(0);
             break;
@@ -74,7 +79,7 @@ label1:
     }
 }
 
-void printL(struct node *headN) {
+void printL() {
     struct node *p = NULL;
     p = headN;
     
@@ -124,18 +129,18 @@ label2:
 
     switch(choice1) {
         case 1:
-            atBeginning(&headN);
-            printL(headN);
+            atBeginning();
+            printL();
             tryAgain(1);
             break;
         case 2:
-            atEnd(&headN);
-            printL(headN);
+            atEnd();
+            printL();
             tryAgain(1);
             break;
         case 3: 
-            atSpecificSerial(&headN);
-            printL(headN);
+            atSpecificSerial();
+            printL();
             tryAgain(1);
             break;
         case 4:
@@ -149,7 +154,7 @@ label2:
     }
 }
 
-void atBeginning(struct node **headN) {
+void atBeginning() {
 
     struct node *newNode = malloc(sizeof(struct node));
     if (!newNode) {
@@ -160,13 +165,13 @@ void atBeginning(struct node **headN) {
     printf("\nnewNode->data: ");
     scanf("%d", &(newNode->data));
 
-    newNode->linkN = *headN;
-    *headN = newNode;
+    newNode->linkN = headN;
+    headN = newNode;
 
     nodeCount++;
 }
 
-void atEnd(struct node **headN) {
+void atEnd() {
     struct node *newNode = malloc(sizeof(struct node));
     if (!newNode) {
         printf("\nError: Memory allocation failed!.\n");
@@ -176,7 +181,7 @@ void atEnd(struct node **headN) {
         scanf("%d", &(newNode->data));
         newNode->linkN = NULL;
 
-        struct node *end = *headN;
+        struct node *end = headN;
             
         while(end->linkN != NULL) {
             end = end->linkN;
@@ -187,7 +192,7 @@ void atEnd(struct node **headN) {
     nodeCount++;
 }
 
-void atSpecificSerial(struct node **headN) {
+void atSpecificSerial() {
     int index;
 
     struct node *newNode = malloc(sizeof(struct node));
@@ -201,7 +206,7 @@ void atSpecificSerial(struct node **headN) {
         printf("serial: ");
         scanf("%d", &index);
 
-        struct node *p = *headN;
+        struct node *p = headN;
 
         if(index > nodeCount + 1 || index < 1) {
             printf("\nError: Enter a valid serial number.");
@@ -209,8 +214,8 @@ void atSpecificSerial(struct node **headN) {
             getch();
             insertion();
         } else if(index == 1) {
-            newNode->linkN = *headN;
-            *headN = newNode;
+            newNode->linkN = headN;
+            headN = newNode;
         } else {
             index = index - 1;
             while(index != 1) {
@@ -251,17 +256,17 @@ label3:
     switch(choice2) {
         case 1:
             firstNode(&headN);
-            printL(headN);
+            printL();
             tryAgain(2);
             break;
         case 2:
             lastNode(&headN);
-            printL(headN);
+            printL();
             tryAgain(2);
             break;
         case 3:
             specificNode(&headN);
-            printL(headN);
+            printL();
             tryAgain(2);
             break;
         case 4:
@@ -313,7 +318,7 @@ void specificNode(struct node **headN) {
     printf("\nserial no.: ");
     scanf("%d", &index);
 
-    if(index > nodeCount + 1 || index < 1) {
+    if(index >= nodeCount + 1 || index < 1) {
         printf("\nError: Enter a valid serial number.");
         printf("\nPress any key to continue...");
         getch();
@@ -340,6 +345,16 @@ void specificNode(struct node **headN) {
 
     nodeCount--;
 }
+
+// void update() {
+//     screenCleaner();
+
+//     int serial, uData;
+
+//     printf("Which node do you want to update?\n\n");
+//     printL(headN);
+
+// }
 
 void tryAgain(int choice) {
     char ch;
