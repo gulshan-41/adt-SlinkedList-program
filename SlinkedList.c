@@ -25,7 +25,7 @@ void firstNode();
 void lastNode();
 void specificNode();
 
-// void upadate();
+void update();
 
 void tryAgain(int );
 void printL();
@@ -65,9 +65,9 @@ label1:
         case 2:
             deletion();
             break;
-        // case 3: 
-        //     update();
-        //     break;
+        case 3: 
+            update();
+            break;
         case 8:
             exit(0);
             break;
@@ -346,15 +346,55 @@ void specificNode() {
     nodeCount--;
 }
 
-// void update() {
-//     screenCleaner();
+void update() {
+    screenCleaner();
 
-//     int serial, uData;
+    int serial, uData, choice;
 
-//     printf("Which node do you want to update?\n\n");
-//     printL(headN);
+    printf("Which node do you want to update?");
+    printL();
 
-// }
+    printf("\nserial no.: ");
+    scanf("%d", &serial);
+    printf("data: ");
+    scanf("%d", &uData);
+
+    if(serial > nodeCount || serial < 1) {
+        printf("\nError: Enter a valid serial number.");
+        printf("\nPress any key to continue...");
+        getch();
+        welcomeScreen();
+    } else {
+        struct node *p = headN;
+
+        for(int i = 1; i < serial; i++) {
+            p = p->linkN;
+        }
+
+        p->data = uData;
+    }
+
+    printL();
+
+    printf("\n> 1. Continue to update more elements.\n");
+    printf("> 2. Exit from this section.\n");
+    printf("\nyour choice: ");
+    scanf("%d", &choice);
+
+    switch(choice) {
+        case 1:
+            update();
+            break;
+        case 2:
+            welcomeScreen();
+            break;
+        default:
+            printf("\nError: Choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            welcomeScreen();
+    }
+}
 
 void tryAgain(int choice) {
     char ch;
