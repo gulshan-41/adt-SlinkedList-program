@@ -27,6 +27,8 @@ void specificNode();
 
 void update();
 
+void search();
+
 void tryAgain(int );
 void printL();
 
@@ -67,6 +69,9 @@ label1:
             break;
         case 3: 
             update();
+            break;
+        case 4:
+            search();
             break;
         case 8:
             exit(0);
@@ -384,6 +389,59 @@ void update() {
     switch(choice) {
         case 1:
             update();
+            break;
+        case 2:
+            welcomeScreen();
+            break;
+        default:
+            printf("\nError: Choose from the given options.");
+            printf("\nPress any key to continue...");
+            getch();
+            welcomeScreen();
+    }
+}
+
+void search(){
+    screenCleaner();
+
+    int target, i, flag = 0, choice;
+
+    if(headN == NULL) {
+        printf("\nError: The list is empty.\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
+    printL();
+
+    printf("\nelement: ");
+    scanf("%d", &target);
+
+    struct node *p = headN;
+
+    for(i = 1; i <= nodeCount; i++) {
+        if(target == p->data) {
+            flag++;
+            break;
+        }
+        p = p->linkN;
+    }
+
+    if(flag == 1) {
+        printf("\nserial no.: %d\n", i);
+    } else {
+        printf("\nelement not found!\n");
+    }
+
+    printf("\n> 1. Continue to search elements.\n");
+    printf("> 2. Exit from this section.\n");
+    printf("\nyour choice: ");
+    scanf("%d", &choice);
+
+    switch(choice) {
+        case 1:
+            search();
             break;
         case 2:
             welcomeScreen();
