@@ -29,6 +29,11 @@ void update();
 
 void search();
 
+void sort();
+struct node * mergeSort(struct node * );
+struct node * split(struct node * ); 
+struct node * merge(struct node * , struct node * );
+
 void tryAgain(int );
 void printL();
 
@@ -72,6 +77,9 @@ label1:
             break;
         case 4:
             search();
+            break;
+        case 5:
+            sort();
             break;
         case 8:
             exit(0);
@@ -451,6 +459,63 @@ void search(){
             printf("\nPress any key to continue...");
             getch();
             welcomeScreen();
+    }
+}
+
+void sort() {
+    screenCleaner();
+
+    printL();
+
+    headN = mergeSort(headN);
+
+    printL();
+
+    printf("\nPress any key to continue...");
+    getch();
+    welcomeScreen();
+}
+
+struct node * mergeSort(struct node *headN) {
+
+    if (headN == NULL || headN->linkN == NULL) {
+        return headN;
+    }
+
+    struct node *second = split(headN);
+
+    headN = mergeSort(headN);
+    second = mergeSort(second);
+
+    return merge(headN, second);
+}
+
+struct node * split(struct node *headN) {
+
+    struct node *fast = headN->linkN;
+    struct node *slow = headN;
+
+    while (fast != NULL && fast->linkN != NULL) {
+        fast = fast->linkN->linkN;
+        slow = slow->linkN;
+    }
+
+    struct node *temp = slow->linkN;
+    slow->linkN = NULL;
+    return temp;
+}
+
+struct node * merge(struct node * first, struct node * second) {
+
+    if(first == NULL) return second;
+    if(second == NULL) return first;
+
+    if(first->data < second->data) {
+        first->linkN = merge(first->linkN, second);
+        return first;
+    } else {
+        second->linkN = merge(first, second->linkN);
+        return second;
     }
 }
 
