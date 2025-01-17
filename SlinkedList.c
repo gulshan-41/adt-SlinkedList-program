@@ -467,6 +467,13 @@ void sort() {
 
     printL();
 
+    if(headN == NULL || headN->linkN == NULL) {
+        printf("\nError: The list is empty or it has only one node!\n");
+        printf("Press any key to continue...");
+        getch();
+        welcomeScreen();
+    }
+
     headN = mergeSort(headN);
 
     printL();
