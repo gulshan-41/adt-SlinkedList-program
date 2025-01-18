@@ -36,6 +36,8 @@ struct node * merge(struct node * , struct node * );
 
 void reverse();
 
+void removeDuplicates();
+
 void tryAgain(int );
 void printL();
 
@@ -85,6 +87,9 @@ label1:
             break;
         case 6:
             reverse();
+            break;
+        case 7:
+            removeDuplicates();
             break;
         case 8:
             exit(0);
@@ -578,6 +583,48 @@ void reverse() {
             getch();
             welcomeScreen();
     }
+}
+
+void removeDuplicates() {
+    screenCleaner();
+
+    printL();
+
+    if (headN == NULL || headN->linkN == NULL) {
+        printf("\nError: The list is empty or has only\n" 
+               "one node, no duplicates to remove.\n");
+        printf("Press any key to continue...\n");
+        getch();
+        welcomeScreen();
+    }
+
+    struct node *current = headN;
+    struct node *temp, *prev;
+
+    while (current != NULL && current->linkN != NULL) {
+        prev = current;
+        temp = current->linkN;
+
+        while (temp != NULL) {
+            if (temp->data == current->data) {
+                // Duplicate found, remove it.
+                prev->linkN = temp->linkN;
+                free(temp);
+                temp = prev->linkN;
+                nodeCount--;
+            } else {
+                prev = temp;
+                temp = temp->linkN;
+            }
+        }
+        current = current->linkN;
+    }
+
+    printL();  // Display the updated list.
+
+    printf("\nPress any key to continue...");
+    getch();
+    welcomeScreen();
 }
 
 void tryAgain(int choice) {
