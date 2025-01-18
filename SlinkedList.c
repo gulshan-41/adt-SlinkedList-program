@@ -4,47 +4,62 @@
 #include <conio.h>      // for: getch();
 #include <stdlib.h>     // for: exit(), system();
 
+// structure that contains a data variable & a pointer variable of it's own type. (NODE)
 struct node {
     int data;
     struct node *linkN; 
 };
 
+/* head node (short for headN) globally declared to reduce the number of parametes, 
+++accessibility across program. */
+
 struct node *headN = NULL;
-int nodeCount = 1;
+// counter variable to count number of nodes.
+int nodeCount = 1;      
 
-void welcomeScreen();
-void screenCleaner();
+void welcomeScreen();       // Introduction to main page & choice screen.
+void screenCleaner();       // Clear the console & input buffer.
 
+// Insertion choice screen & functions.
 void insertion();
 void atBeginning();
 void atEnd();
 void atSpecificSerial();
 
+// Deletion choice screen & functions.
 void deletion();
 void firstNode();
 void lastNode();
 void specificNode();
 
+// Update function.
 void update();
 
+// Search function.
 void search();
 
+// sort function. (Merge sort algorithm)
 void sort();
 struct node * mergeSort(struct node * );
 struct node * split(struct node * ); 
 struct node * merge(struct node * , struct node * );
 
+// Reverse function.
 void reverse();
 
+// Remove duplicates from the list.
 void removeDuplicates();
 
+// Try again and print function.
 void tryAgain(int );
 void printL();
 
+// main function.
 void main() {
     welcomeScreen();
 }
 
+// Welcome screen.
 void welcomeScreen() {
     int choice;
 
@@ -102,6 +117,7 @@ label1:
     }
 }
 
+// Traverse through the list and print the elements.
 void printL() {
     struct node *p = NULL;
     p = headN;
@@ -119,6 +135,7 @@ void printL() {
     printf("\n");
 }
 
+// Insertion function, and it's operations.
 void insertion() {
 
     screenCleaner();
@@ -177,6 +194,7 @@ label2:
     }
 }
 
+// Insert element at the beginning of the list.
 void atBeginning() {
 
     struct node *newNode = malloc(sizeof(struct node));
@@ -194,6 +212,7 @@ void atBeginning() {
     nodeCount++;
 }
 
+// Insert element at the end of the list.
 void atEnd() {
     struct node *newNode = malloc(sizeof(struct node));
     if (!newNode) {
@@ -215,6 +234,7 @@ void atEnd() {
     nodeCount++;
 }
 
+// Insert element at a specified serial number.
 void atSpecificSerial() {
     int index;
 
@@ -231,6 +251,7 @@ void atSpecificSerial() {
 
         struct node *p = headN;
 
+        // The serial number should be between the list, or at the end.
         if(index > nodeCount + 1 || index < 1) {
             printf("\nError: Enter a valid serial number.");
             printf("\nPress any key to continue...");
@@ -253,6 +274,7 @@ void atSpecificSerial() {
     nodeCount++;
 }
 
+// Deletion function and it's operations.
 void deletion() {
     screenCleaner();
 
@@ -303,6 +325,7 @@ label3:
     }
 }
 
+// Deletes the first node.
 void firstNode() {
 
     struct node *p = headN;
@@ -314,6 +337,7 @@ void firstNode() {
     nodeCount--;
 }
 
+// Deletes the last node.
 void lastNode() {
 
     if((headN)->linkN == NULL) {
@@ -335,6 +359,7 @@ void lastNode() {
     nodeCount--;
 }
 
+// Deletes a specific node, specified with it's serial number.
 void specificNode() {
     int index;
 
@@ -369,6 +394,7 @@ void specificNode() {
     nodeCount--;
 }
 
+// Update elements with new data.
 void update() {
     screenCleaner();
 
@@ -419,6 +445,7 @@ void update() {
     }
 }
 
+// Search a specific element.
 void search(){
     screenCleaner();
 
@@ -472,6 +499,7 @@ void search(){
     }
 }
 
+// Sort the list using merge sort algorithm. (Backtracking!)
 void sort() {
     screenCleaner();
 
@@ -536,6 +564,7 @@ struct node * merge(struct node * first, struct node * second) {
     }
 }
 
+// Reverse the list.
 void reverse() {
     screenCleaner();
 
@@ -585,6 +614,7 @@ void reverse() {
     }
 }
 
+// Traverse through the list and remove duplicates of an element.
 void removeDuplicates() {
     screenCleaner();
 
@@ -627,6 +657,7 @@ void removeDuplicates() {
     welcomeScreen();
 }
 
+// Try again program.
 void tryAgain(int choice) {
     char ch;
 
@@ -654,6 +685,7 @@ void tryAgain(int choice) {
     }
 }
 
+// Screen cleaner function.
 void screenCleaner() {
     system("cls");
     fflush(stdin);
