@@ -9,11 +9,11 @@ C program implementing and demonstrating operations on Singly Linked List. Desig
 - Simple and clean code structure.
 
 ## Project Structure
-``
+```
 adt-SlinkedList-program/
 |-- SlinkedList.c  # Main program implementing ADT Singly Linked List
 |-- README.md  # Project documentation
-``
+```
 
 ## Requirements
 - **C Compiler** (GCC, MinGW, or any compatible)
