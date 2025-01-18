@@ -1,6 +1,8 @@
 # adt-SlinkedList-program
 C program implementing and demonstrating operations on Singly Linked List. Designed to help beginners understand operations related to Singly Linked List.
 
+<img src="images/welcomeScreen.png" alt="Program Screenshot">
+
 ## Features
 - Operation including: [Insertion](#insertion-operations), [Deletion](#deletion-operations), [Updation](#update-function), [Searching](#search-function), [Sorting](#sort-functions), [Reverse](#reverse-function), [Removing Duplicates](#removing-duplicates-function).
 - Menu driven program for easy interaction.
