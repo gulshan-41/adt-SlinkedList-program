@@ -194,7 +194,7 @@ label2:
     }
 }
 
-// Insert element at the beginning of the list.
+// Insert a node at the beginning of the list.
 void atBeginning() {
 
     struct node *newNode = malloc(sizeof(struct node));
@@ -212,7 +212,7 @@ void atBeginning() {
     nodeCount++;
 }
 
-// Insert element at the end of the list.
+// Insert a node at the end of the list.
 void atEnd() {
     struct node *newNode = malloc(sizeof(struct node));
     if (!newNode) {
@@ -234,7 +234,7 @@ void atEnd() {
     nodeCount++;
 }
 
-// Insert element at a specified serial number.
+// Insert a node at a specified serial number.
 void atSpecificSerial() {
     int index;
 
@@ -394,7 +394,7 @@ void specificNode() {
     nodeCount--;
 }
 
-// Update elements with new data.
+// Update nodes with new data.
 void update() {
     screenCleaner();
 
@@ -445,7 +445,7 @@ void update() {
     }
 }
 
-// Search a specific element.
+// Search a specific node, taking reference it's data.
 void search(){
     screenCleaner();
 
