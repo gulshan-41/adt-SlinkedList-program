@@ -1,4 +1,4 @@
-// Implementing linked list - abstract data type.
+// Implementing Singly Linked List - abstract data type.
 
 #include <stdio.h>      // for: input & output.
 #include <conio.h>      // for: getch();
