@@ -39,6 +39,7 @@ Main functions that construct the whole program includes, main(), welcomeScreen(
 
 ## Insertion Operations
 
+<img src="images/insertion.png" alt="Program Screenshot">
 
 - Insert a node at the beginning of the list.
 ```bash
@@ -126,6 +127,7 @@ void atSpecificSerial() {
 
 ## Deletion Operations
 
+<img src="images/deletion.png" alt="Program Screenshot">
 
 - Deleting the first node.
 ```bash
